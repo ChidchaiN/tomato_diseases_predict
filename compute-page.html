@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="compute-style.css">
   <title>Document</title>
 </head>
-
 <body>
   <div class="nav-bar">
     <h1>MENU</h1>
@@ -22,11 +20,38 @@
   <div class="compute">
     <div class="input">
       <input type="file" id="input" accept="image/*">
+      <button id="submit">Submit</button>
     </div>
     <div class="output">
       <p id="output">output</p>
     </div>
   </div>
-</body>
 
+  <script>
+    document.getElementById('submit').addEventListener('click', async () => {
+      const inputFile = document.getElementById('input').files[0];
+
+      if (!inputFile) {
+        alert('Please select a file.');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('file', inputFile);
+
+      try {
+        const response = await fetch('http://127.0.0.1:5500/api/predict/', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+        document.getElementById('output').innerText = JSON.stringify(data);
+      } catch (error) {
+        console.error('Error:', error);
+        document.getElementById('output').innerText = 'Error occurred while processing the request.';
+      }
+    });
+  </script>
+</body>
 </html>
