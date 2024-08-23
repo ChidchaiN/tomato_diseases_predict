@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'compute_style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="nav-bar">
+    <h1>Tomato Disease Detection</h1>
+  </div>
+  <div class="compute">
+    <div class="input">
+      <form id="upload-form" action="{% url 'predict' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div id="camera-container" style="display: none;">
+          <video id="video" autoplay></video>
+          <button type="button" class="btn" id="capture-btn" onclick="captureImage()">Capture Image</button>
+        </div>
+        <label for="file-input" class="btn" id="file-input-label">Choose Image</label>
+        <input type="file" id="file-input" name="file" accept="image/*" onchange="previewImage(event)">
+        <button type="button" class="btn" id="capture-image-btn" onclick="startCamera()">Take Picture</button>
+        <button type="submit" class="btn" id="upload-btn" style="display: none;" disabled>Upload Image</button>
+      </form>
+    </div>
+
+    <div class="icon-container">
+      <i class="fa-solid fa-arrow-right-arrow-left"></i>
+    </div>
+
+    <div class="output">
+      <img id="preview" src="" alt="" style="display: none;">
+      <div class="prediction-result">
+        {% if predicted_class %}
+        <p><strong>Predicted:</strong> {{ predicted_class }}</p>
+        <!-- <p><strong>Confidence:</strong> {{ prediction_confidence }}%</p> -->
+        <img src="data:image/jpeg;base64,{{ image_base64 }}" alt="Uploaded Image" />
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Pop-up Box -->
+    <div id="popup-box" class="popup-box" style="display: none;">
+      <div class="popup-content">
+        <span class="popup-close" onclick="closePopup()">&times;</span>
+        <div id="popup-text"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    const preview = document.getElementById('preview');
+    const uploadBtn = document.getElementById('upload-btn');
+    const fileInput = document.getElementById('file-input');
+    const cameraContainer = document.getElementById('camera-container');
+    const captureImageBtn = document.getElementById('capture-image-btn');
+    const fileInputLabel = document.getElementById('file-input-label');
+    const uploadForm = document.getElementById('upload-form');
+    let currentStream = null;
+
+    function startCamera() {
+      fileInputLabel.style.display = 'none';
+      captureImageBtn.style.display = 'none';
+      uploadBtn.style.display = 'none'; // Hide upload button
+
+      cameraContainer.style.display = 'block'; // Show camera container
+
+      navigator.mediaDevices.enumerateDevices()
+        .then(devices => {
+          const videoDevices = devices.filter(device => device.kind === 'videoinput');
+          if (videoDevices.length > 0) {
+            startVideo(videoDevices[0].deviceId);
+          } else {
+            alert("No camera devices found.");
+          }
+        })
+        .catch(err => {
+          console.error("Error enumerating devices: ", err);
+          alert("Error enumerating devices: " + err.message);
+        });
+    }
+
+    function startVideo(deviceId) {
+      if (currentStream) {
+        currentStream.getTracks().forEach(track => track.stop());
+      }
+
+      const constraints = {
+        video: {
+          deviceId: deviceId ? {
+            exact: deviceId
+          } : undefined
+        }
+      };
+
+      navigator.mediaDevices.getUserMedia(constraints)
+        .then(stream => {
+          video.srcObject = stream;
+          currentStream = stream;
+        })
+        .catch(err => {
+          console.error("Error accessing camera: ", err);
+          alert("Error accessing camera: " + err.message);
+        });
+    }
+
+    function captureImage() {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      canvas.toBlob(blob => {
+        const file = new File([blob], "captured_image.jpg", {
+          type: "image/jpeg"
+        });
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);
+        fileInput.files = dataTransfer.files;
+        preview.src = URL.createObjectURL(blob);
+        preview.style.display = 'block';
+        uploadBtn.style.display = 'block'; // Show upload button
+        uploadBtn.disabled = false; // Enable upload button
+        cameraContainer.style.display = 'none'; // Hide camera container
+        fileInputLabel.style.display = 'block'; // Show choose image button
+        captureImageBtn.style.display = 'block'; // Show take picture button
+
+        // Automatically submit the form
+        uploadForm.submit();
+
+        // Clear previous prediction results
+        document.querySelector('.prediction-result').innerHTML = '';
+      }, "image/jpeg");
+    }
+
+    function previewImage(event) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        preview.src = reader.result;
+        preview.style.display = 'block';
+        uploadBtn.style.display = 'block'; // Show upload button
+        uploadBtn.disabled = false; // Enable upload button
+        cameraContainer.style.display = 'none'; // Hide camera container
+        fileInputLabel.style.display = 'block'; // Show choose image button
+        captureImageBtn.style.display = 'block'; // Show take picture button
+        // Clear previous prediction results
+        document.querySelector('.prediction-result').innerHTML = '';
+      }
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  </script>
+
+  <script>
+    // Define the JavaScript function for showing the pop-up
+    function showPopup(predictedClass) {
+      let advice;
+      switch (predictedClass) {
+        case 'โรคใบจุดมะเขือเทศ':
+          advice = 'Advice for โรคใบจุดมะเขือเทศ...';
+          break;
+        case 'โรคใบไหม้':
+          advice = 'Advice for โรคใบไหม้...';
+          break;
+        case 'โรคใบจุดวงกลม':
+          advice = 'Advice for โรคใบจุดวงกลม...';
+          break;
+        case 'ใบสุขภาพดี':
+          advice = 'Advice for ใบสุขภาพดี...';
+          break;
+        default:
+          advice = 'No advice available.';
+      }
+      document.getElementById('popup-text').innerHTML = advice;
+      document.getElementById('popup-box').style.display = 'block';
+    }
+
+    function closePopup() {
+      document.getElementById('popup-box').style.display = 'none';
+    }
+
+    function inspectPopup() {
+      document.getElementById('popup-box').style.display = 'block';
+    }
+
+    // Use Django template variable in JavaScript
+    document.addEventListener('DOMContentLoaded', function () {
+      const predictedClass = "{{ predicted_class|escapejs }}";
+      if (predictedClass) {
+        showPopup(predictedClass);
+      }
+    });
+  </script>
+</body>
+
+</html>

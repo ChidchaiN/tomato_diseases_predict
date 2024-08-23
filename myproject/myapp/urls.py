@@ -1,6 +1,7 @@
+# urls.py
 from django.urls import path
-from .views import call_ml_api
+from . import views
 
 urlpatterns = [
-    path('api/predict/', call_ml_api, name='call_ml_api')
+    path('predict/', views.predict, name='predict'),
 ]
