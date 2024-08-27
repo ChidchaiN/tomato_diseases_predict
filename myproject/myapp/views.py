@@ -5,19 +5,42 @@ from django.core.files.storage import default_storage
 import base64
 import os
 import logging
-from PIL import Image
+from PIL import Image, ImageOps, ImageDraw
 import io
 
 # Setup logging
 logger = logging.getLogger(__name__)
 
-def resize_image(image, max_size=(400, 400)):
-    """Resize the image to fit within a box of max_size."""
+def resize_and_convert_image(input_path, output_path, max_size=(400, 400), border_radius=20, save_as='PNG'):
+    """Resize the image, apply a border radius, and convert to PNG or JPEG in one function."""
+    
+    # Open the image
+    image = Image.open(input_path)
+    
+    # Ensure the image is in RGBA mode to handle transparency if saving as PNG
+    if save_as.upper() == 'PNG':
+        image = image.convert("RGBA")
+    else:
+        image = image.convert("RGB")
+    
+    # Resize the image
     image.thumbnail(max_size, Image.LANCZOS)
-    return image
+    
+    # Create a mask for the rounded corners
+    mask = Image.new("L", image.size, 0)
+    draw = ImageDraw.Draw(mask)
+    draw.rounded_rectangle([0, 0, image.size[0], image.size[1]], radius=border_radius, fill=255)
+    
+    # Apply the mask to the image to create rounded corners
+    image.putalpha(mask)
+
+    # Save the image in the desired format
+    image.save(output_path, format=save_as.upper())
+    return output_path
 
 def predict(request):
     context = {}
+    resized_image_path = None  # Initialize variable
     
     if request.method == 'POST' and request.FILES.get('file'):
         uploaded_file = request.FILES['file']
@@ -48,20 +71,12 @@ def predict(request):
                 highest_confidence_class = max(prediction_confidences, key=prediction_confidences.get)
                 highest_confidence = prediction_confidences[highest_confidence_class]
                 
-                # Convert the image to base64 for display
-                with open(file_path, 'rb') as image_file:
-                    # Open the image
-                    image = Image.open(image_file)
-                    
-                    # Resize the image
-                    image = resize_image(image)
-                    
-                    # Convert the resized image to a byte stream
-                    buffered = io.BytesIO()
-                    image.save(buffered, format="JPEG")
-                    
-                    # Encode the byte stream to base64
-                    image_base64 = base64.b64encode(buffered.getvalue()).decode('utf-8')
+                # Convert and resize the image with rounded corners, save as PNG
+                resized_image_path = resize_and_convert_image(file_path, 'resized_image.png', save_as='PNG')
+                
+                # Convert the resized image to base64 for display
+                with open(resized_image_path, 'rb') as image_file:
+                    image_base64 = base64.b64encode(image_file.read()).decode('utf-8')
                 
                 context = {
                     'predicted_class': highest_confidence_class,
@@ -80,5 +95,8 @@ def predict(request):
             # Delete the temporary file
             if os.path.exists(file_path):
                 default_storage.delete(file_name)
+            # Optionally delete the resized image if not needed
+            if resized_image_path and os.path.exists(resized_image_path):
+                os.remove(resized_image_path)
     
     return render(request, 'compute_page.html', context)

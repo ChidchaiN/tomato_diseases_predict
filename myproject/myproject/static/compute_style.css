@@ -129,13 +129,13 @@ video {
     display: none;
 }
 
-.preview-container {
+/* #result_image {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    width: 100%;
-    height: 100%;
-}
+    justify-content: center;
+    border-radius: 19px;
+} */
 
 #preview {
     max-width: 100%;
