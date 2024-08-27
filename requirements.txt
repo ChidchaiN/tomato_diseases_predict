@@ -60,7 +60,6 @@ PyMatting==1.1.12
 pyparsing==3.1.1
 pyreadline3==3.4.1
 python-dateutil==2.8.2
-pywin32==306
 pyzmq==25.1.2
 referencing==0.33.0
 rembg==2.0.55
