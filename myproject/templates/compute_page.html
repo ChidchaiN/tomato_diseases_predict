@@ -16,31 +16,54 @@
   </div>
   <div class="compute">
     <div class="input">
+      <img src="{% static 'img/tomato.png' %}" alt="Background Image" style="
+        position: absolute;
+        width: 70%;
+        height: 70%;
+        left: 0;
+        bottom: 0;
+        opacity: 0.3;
+      " />
       <form id="upload-form" action="{% url 'predict' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div id="camera-container" style="display: none;">
           <video id="video" autoplay></video>
-          <button type="button" class="btn" id="capture-btn" onclick="captureImage()">Capture Image</button>
+          <button type="button" class="btn" id="capture-btn" style="width: 100px;  text-align: center;"
+            onclick="captureImage()">ถ่ายภาพ</button>
         </div>
-        <label for="file-input" class="btn" id="file-input-label">Choose Image</label>
+        <label for="file-input" class="btn" id="file-input-label" style="width: 100px;  text-align: center; left: 50%;
+     transform: translateX(175%);">รูปภาพ</label>
+        <p style="font-size: 14px; color: #555; margin-top: 5px; margin-bottom: 20px; text-align: center; position: relative; background-color: rgba(255, 255, 255, 0.65);
+        padding: 5px; /* Add some padding around the text */
+        border-radius: 3px; /* Optional: rounded corners for the background */" id="file-input-label-advice">
+          คลิกเพื่อเลือกภาพใบมะเขือเทศจากอุปกรณ์ของคุณ, เฉพาะไฟล์นามสกุล .jpg, .jpeg, .png</p>
         <input type="file" id="file-input" name="file" accept="image/*" onchange="previewImage(event)">
-        <button type="button" class="btn" id="capture-image-btn" onclick="startCamera()">Take Picture</button>
-        <button type="submit" class="btn" id="upload-btn" style="display: none;" disabled>Upload Image</button>
+        <button type="button" class="btn" id="capture-image-btn" style="width: 100px;  text-align: center; left: 50%;
+     transform: translateX(175%);" onclick="startCamera()">กล้อง</button>
+        <p style="font-size: 14px; color: #555; margin-top: 5px; text-align: center; width: 150px; word-wrap: break-word; transform: translateX(100%); position: relative; background-color: rgba(255, 255, 255, 0.65);
+        padding: 5px; /* Add some padding around the text */
+        border-radius: 3px; /* Optional: rounded corners for the background */" id="capture-image-btn-advice">
+          คลิกเพื่อเปิดกล้อง</p>
+        <!-- <button type="submit" class="btn" id="upload-btn" style="width: 150px; display: none;" disabled>Upload Image</button> -->
       </form>
     </div>
 
-    <div class="icon-container">
-      <i class="fa-solid fa-arrow-right-arrow-left"></i>
+    <div class="icon-wrapper" style="display: none;">
+      <div class="icon-container">
+        <i class="fa-solid fa-arrow-right-arrow-left"></i>
+      </div>
     </div>
 
-    <div class="output">
-      <img id="preview" src="" alt="" style="display: none;">
-      <div class="prediction-result">
-        {% if predicted_class %}
-        <p><strong>Predicted:</strong> {{ predicted_class }}</p>
-        <!-- <p><strong>Confidence:</strong> {{ prediction_confidence }}%</p> -->
-        <img id="result_image" src="data:image/jpeg;base64,{{ image_base64 }}" alt="Uploaded Image" />
-        {% endif %}
+    <div class="output-wrapper" style="display: none;">
+      <div class="output hidden" id="output-section">
+        <img id="preview" src="" alt="" class="hidden">
+        <div class="prediction-result">
+          {% if predicted_class %}
+          <p><strong>Predicted:</strong> {{ predicted_class }}</p>
+          <!-- <p><strong>Confidence:</strong> {{ prediction_confidence }}%</p> -->
+          <img id="result_image" src="data:image/jpeg;base64,{{ image_base64 }}" alt="Uploaded Image" />
+          {% endif %}
+        </div>
       </div>
     </div>
 
@@ -51,28 +74,34 @@
         <div id="popup-text"></div>
       </div>
     </div>
-
   </div>
+
+  <!-- Footer -->
+  <footer style="background-color: #f1f1f1; padding: 10px; text-align: center;">
+    <p>&copy; 2024 Tomato Disease Detection. All rights reserved.</p>
+  </footer>
 
   <script>
     const video = document.getElementById('video');
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
     const preview = document.getElementById('preview');
-    const uploadBtn = document.getElementById('upload-btn');
     const fileInput = document.getElementById('file-input');
     const cameraContainer = document.getElementById('camera-container');
     const captureImageBtn = document.getElementById('capture-image-btn');
     const fileInputLabel = document.getElementById('file-input-label');
+    const fileInputLabelAdvice = document.getElementById('file-input-label-advice');
+    const captureImageBtnAdvice = document.getElementById('capture-image-btn-advice');
     const uploadForm = document.getElementById('upload-form');
     let currentStream = null;
 
     function startCamera() {
       fileInputLabel.style.display = 'none';
       captureImageBtn.style.display = 'none';
-      uploadBtn.style.display = 'none'; // Hide upload button
+      fileInputLabelAdvice.style.display = 'none'; // Hide file input advice
+      captureImageBtnAdvice.style.display = 'none'; // Hide camera button advice
 
-      cameraContainer.style.display = 'block'; // Show camera container
+      cameraContainer.style.display = 'block';
 
       navigator.mediaDevices.enumerateDevices()
         .then(devices => {
@@ -105,6 +134,7 @@
       navigator.mediaDevices.getUserMedia(constraints)
         .then(stream => {
           video.srcObject = stream;
+          video.play(); // Ensure the video is playing
           currentStream = stream;
         })
         .catch(err => {
@@ -126,16 +156,11 @@
         fileInput.files = dataTransfer.files;
         preview.src = URL.createObjectURL(blob);
         preview.style.display = 'block';
-        uploadBtn.style.display = 'block'; // Show upload button
-        uploadBtn.disabled = false; // Enable upload button
-        cameraContainer.style.display = 'none'; // Hide camera container
-        fileInputLabel.style.display = 'block'; // Show choose image button
-        captureImageBtn.style.display = 'block'; // Show take picture button
+        cameraContainer.style.display = 'none';
+        fileInputLabel.style.display = 'block';
+        captureImageBtn.style.display = 'block';
 
-        // Automatically submit the form
         uploadForm.submit();
-
-        // Clear previous prediction results
         document.querySelector('.prediction-result').innerHTML = '';
       }, "image/jpeg");
     }
@@ -144,21 +169,20 @@
       const reader = new FileReader();
       reader.onload = function () {
         preview.src = reader.result;
-        preview.style.display = 'block';
-        uploadBtn.style.display = 'block'; // Show upload button
-        uploadBtn.disabled = false; // Enable upload button
-        cameraContainer.style.display = 'none'; // Hide camera container
-        fileInputLabel.style.display = 'block'; // Show choose image button
-        captureImageBtn.style.display = 'block'; // Show take picture button
-        // Clear previous prediction results
+        preview.classList.remove('hidden');
+        cameraContainer.classList.add('hidden');
+        fileInputLabel.classList.remove('hidden');
+        captureImageBtn.classList.remove('hidden');
+
+        document.getElementById('output-section').classList.remove('hidden');
+        document.querySelector('.icon-container').classList.remove('hidden');
+
+        uploadForm.submit();
         document.querySelector('.prediction-result').innerHTML = '';
       }
       reader.readAsDataURL(event.target.files[0]);
     }
-  </script>
 
-  <script>
-    // Define the JavaScript function for showing the pop-up
     function showPopup(predictedClass) {
       let advice;
       switch (predictedClass) {
@@ -178,23 +202,39 @@
           advice = 'No advice available.';
       }
       document.getElementById('popup-text').innerHTML = advice;
-      document.getElementById('popup-box').style.display = 'block';
+      document.getElementById('popup-box').classList.remove('hidden');
     }
 
     function closePopup() {
-      document.getElementById('popup-box').style.display = 'none';
+      document.getElementById('popup-box').classList.add('hidden');
     }
 
     function inspectPopup() {
-      document.getElementById('popup-box').style.display = 'block';
+      document.getElementById('popup-box').classList.remove('hidden');
     }
 
-    // Use Django template variable in JavaScript
     document.addEventListener('DOMContentLoaded', function () {
+      const iconWrapper = document.querySelector('.icon-wrapper');
+      const outputWrapper = document.querySelector('.output-wrapper');
+      const fileInp = document.getElementById('file-input');
       const predictedClass = "{{ predicted_class|escapejs }}";
+
+      outputWrapper.style.display = 'none';
+      iconWrapper.style.display = 'none';
+
       if (predictedClass) {
-        showPopup(predictedClass);
+        outputWrapper.style.display = 'block';
+        iconWrapper.style.display = 'block';
+        fileInputLabelAdvice.style.display = 'block';
+        captureImageBtnAdvice.style.display = 'block';
       }
+
+      fileInp.addEventListener('change', function () {
+        outputWrapper.style.display = 'block';
+        iconWrapper.style.display = 'block';
+        fileInputLabelAdvice.style.display = 'block';
+        captureImageBtnAdvice.style.display = 'block';
+      });
     });
   </script>
 </body>

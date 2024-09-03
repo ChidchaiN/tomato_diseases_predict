@@ -53,12 +53,12 @@ body {
     gap: 50px;
 }
 
-.input, .output {
+.input,
+.output {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-    width: 70vh;
     background-color: rgb(255, 255, 255);
     border: 1px solid rgb(255, 255, 255);
     border-radius: 20px;
@@ -73,7 +73,6 @@ body {
 
 .output {
     height: 50vh;
-    overflow: auto;
 }
 
 .icon-container {
@@ -99,10 +98,12 @@ video {
 
 #capture-btn {
     position: absolute;
-    bottom: 20px; /* Adjust as needed */
+    bottom: 20px;
+    /* Adjust as needed */
     left: 50%;
     transform: translateX(-50%);
-    z-index: 10; /* Ensure it is above the video */
+    z-index: 10;
+    /* Ensure it is above the video */
 }
 
 .btn {
@@ -114,7 +115,7 @@ video {
     border-radius: 5px;
     cursor: pointer;
     display: block;
-    margin: 10px 0;
+    margin: 10px;
 }
 
 .btn:hover {
@@ -128,14 +129,6 @@ video {
 #file-input {
     display: none;
 }
-
-/* #result_image {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    border-radius: 19px;
-} */
 
 #preview {
     max-width: 100%;
