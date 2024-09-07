@@ -53,7 +53,7 @@ def predict(request):
             # Send the file to the API
             with open(file_path, 'rb') as f:
                 response = requests.post(
-                    'http://13.250.44.65/predict',
+                    'http://18.136.199.173/predict',
                     files={'file': f}
                 )
             
@@ -100,3 +100,6 @@ def predict(request):
                 os.remove(resized_image_path)
     
     return render(request, 'compute_page.html', context)
+
+def index(request):
+    return render(request, 'index/index.html')

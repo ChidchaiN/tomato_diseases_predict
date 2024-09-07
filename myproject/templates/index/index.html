@@ -3,15 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="icon" href="{% static 'img/tomato.png' %}" type="image/x-icon">
+    <title>Tomato Disease Detection</title>
 </head>
 <body>
     <div class="container">
         <div class="nav-bar">
             <h1>MENU</h1>
             <ul>
-                <li><a href="">Home</a></li>
+                <li><a href="http://127.0.0.1:8000/predict/">Home</a></li>
                 <li><a href="">Home</a></li>
                 <li><a href="">Home</a></li>
                 <li><a href="">Home</a></li>
