@@ -66,7 +66,6 @@ body {
     border: 1px solid rgb(255, 255, 255);
     border-radius: 20px;
     box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
-    padding: 20px;
     position: relative;
 }
 
@@ -84,11 +83,6 @@ body {
     justify-content: center;
     width: 50px;
     height: 50px;
-}
-
-.icon-container i {
-    font-size: 100px;
-    color: #747474;
 }
 
 video {
@@ -186,4 +180,103 @@ video {
 
 .popup-content div {
     margin-top: 20px;
+}
+
+/* Base styles (mobile first) */
+body {
+    font-size: 16px;
+}
+
+.nav-bar {
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-bar h1 {
+    font-size: 20px;
+}
+
+.nav-bar ul {
+    flex-direction: column;
+    gap: 10px;
+}
+
+.compute {
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input,
+.output {
+    width: 90%;
+    height: auto;
+}
+
+#preview {
+    max-width: 100%;
+}
+
+.popup-content {
+    left: 0;
+    top: 0;
+    width: 90%;
+    max-width: 400px;
+    margin: 20px;
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+    .nav-bar {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .nav-bar h1 {
+        font-size: 24px;
+    }
+
+    .nav-bar ul {
+        flex-direction: row;
+    }
+
+    .compute {
+        flex-direction: row;
+        gap: 50px;
+    }
+
+    .input,
+    .output {
+        width: 45%;
+    }
+
+    .popup-content {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80%;
+        max-width: 500px;
+    }
+}
+
+/* Desktop and up */
+@media (min-width: 1024px) {
+    .nav-bar h1 {
+        font-size: 28px;
+    }
+
+    .nav-bar ul li a {
+        font-size: 20px;
+    }
+
+    .compute {
+        gap: 100px;
+    }
+
+    .input,
+    .output {
+        width: 40%;
+    }
+
+    .popup-content {
+        width: 60%;
+    }
 }
