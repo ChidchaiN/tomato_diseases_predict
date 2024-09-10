@@ -12,42 +12,37 @@ body {
 }
 
 .nav-bar {
-    height: 100%;
-    width: 180px;
-    position: absolute;
-    background-color: #fff;
-    transition: 0.5s ease;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-h1 {
-    color: black;
-    font-weight: 800;
-    text-align: right;
-    padding: 10px 0;
-    padding-right: 30px;
-    pointer-events: none;
+.nav-bar h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
 }
 
-ul li {
+.nav-bar ul {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-bar ul li {
     list-style: none;
 }
 
-ul :hover {
-    color: #ff9f1a;
-    background-color: #e2e2e2;
-}
-
-ul li a {
-    color: #011a41;
-    font-weight: 500;
-    padding: 5px 0;
-    display: block;
-    text-transform: capitalize;
+.nav-bar ul li a {
+    color: #fff;
     text-decoration: none;
-    transition: 0.2s ease-out;
+    font-size: 18px;
+    transition: color 0.3s ease;
 }
 
-ul li a i {
-    width: 40px;
-    text-align: center;
+.nav-bar ul li a:hover {
+    color: #ffa500;
 }
