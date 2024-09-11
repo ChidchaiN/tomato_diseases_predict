@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    background-color: rgb(238, 238, 238);
+}
+
+.nav-bar {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-bar h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.nav-bar ul {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-bar ul li {
+    list-style: none;
+}
+
+.nav-bar ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+.nav-bar ul li a:hover {
+    color: #ffa500;
+}
+
+.title {
+    text-wrap: break-word;
+    text-align: center;
+    width: 150px;
+}
+
+.title h1 {
+    word-wrap: break-word; /* Breaks long words onto the next line */
+    overflow-wrap: break-word; /* Ensures text wraps inside the container */
+    white-space: normal; /* Allows text to wrap normally */
+    width: 600px;
+    transform: translateX(85%);
+    margin-top: 0;
+}
+
+/* Ensure the page uses Flexbox to center content */
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 60px); /* Adjust height to fit content without overlapping with nav-bar */
+}
+
+.link-button {
+    display: flex;
+    gap: 50px; /* Space between buttons */
+}
+
+.btn {
+    width: 30vw; /* 25% of the viewport width */
+    height: 45vh; /* 30% of the viewport height */
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    background-color: #ffffff; /* Light grey background */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    opacity: 0.9; /* Reduced opacity */
+    transition: background-color 0.3s ease, opacity 0.3s ease; /* Smooth transitions for hover effects */
+}
+
+.btn:hover {
+    background-color: #c0c0c0; /* Slightly darker grey for hover effect */
+    opacity: 1; /* Full opacity on hover */
+}
+
+.disease-info,
+.general-care-card {
+    width: 100%;
+    max-width: 1200px; /* Optional: Limits the maximum width for large screens */
+    margin-bottom: 20px;
+}
+
+.info-card,
+.general-care-card {
+    background-color: #ffffff;
+    opacity: 0.9;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.info-card {
+    margin-bottom: 80px;
+}
+
+.info-card h2,
+.general-care-card h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.info-card p,
+.general-care-card p {
+    margin-bottom: 10px;
+}
+
+.info-card ul,
+.general-care-card ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-up {
+    opacity: 0; /* Hide initially */
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-up.visible {
+    animation: fadeUp 1s ease-out forwards; /* Apply the animation */
+}

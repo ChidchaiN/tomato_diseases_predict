@@ -56,8 +56,7 @@ body {
     z-index: 1;
 }
 
-.input,
-.output {
+.input {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -67,13 +66,6 @@ body {
     border-radius: 20px;
     box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
     position: relative;
-}
-
-.input {
-    height: 50vh;
-}
-
-.output {
     height: 50vh;
 }
 
@@ -152,12 +144,12 @@ video {
 .popup-content {
     background-color: #fff;
     padding: 20px;
-    border-radius: 5px;
+    border-radius: 20px;
     position: relative;
-    left: 35%;
-    top: 10%;
+    left: 30%;
+    top: 5%;
     width: 80%;
-    max-width: 500px;
+    max-width: 600px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -180,113 +172,4 @@ video {
 
 .popup-content div {
     margin-top: 20px;
-}
-
-/* Base styles (mobile first) */
-body {
-    font-size: 16px;
-}
-
-.nav-bar {
-    flex-direction: column;
-    align-items: center;
-}
-
-.nav-bar h1 {
-    font-size: 20px;
-}
-
-.nav-bar ul {
-    flex-direction: column;
-    gap: 10px;
-}
-
-.compute {
-    flex-direction: column;
-    gap: 20px;
-}
-
-.input,
-.output {
-    width: 90%;
-    height: auto;
-}
-
-#preview {
-    max-width: 100%;
-}
-
-.popup-content {
-    left: 0;
-    top: 0;
-    width: 90%;
-    max-width: 400px;
-    margin: 20px;
-}
-
-/* Tablet and up */
-@media (min-width: 768px) {
-    .nav-bar {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .nav-bar h1 {
-        font-size: 24px;
-    }
-
-    .nav-bar ul {
-        flex-direction: row;
-    }
-
-    .compute {
-        flex-direction: row;
-        gap: 50px;
-    }
-
-    .input,
-    .output {
-        width: 45%;
-    }
-
-    .popup-content {
-        left: 50%;
-        transform: translateX(-50%);
-        width: 80%;
-        max-width: 500px;
-    }
-}
-
-/* Desktop and up */
-@media (min-width: 1024px) {
-    .nav-bar h1 {
-        font-size: 28px;
-    }
-
-    .nav-bar ul li a {
-        font-size: 20px;
-    }
-
-    .compute {
-        gap: 100px;
-    }
-
-    .input,
-    .output {
-        width: 40%;
-    }
-
-    .popup-content {
-        width: 60%;
-    }
-}
-
-.footer-icons a:hover {
-    color: #ffa500; /* Hover color for icons */
-}
-
-@media (max-width: 768px) {
-    .footer-icons {
-        gap: 10px;
-    }
 }

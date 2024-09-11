@@ -53,7 +53,7 @@ def predict(request):
             # Send the file to the API
             with open(file_path, 'rb') as f:
                 response = requests.post(
-                    'http://54.169.9.155/predict',
+                    'http://47.129.39.129/predict',
                     files={'file': f}
                 )
             

@@ -46,3 +46,34 @@ body {
 .nav-bar ul li a:hover {
     color: #ffa500;
 }
+
+.title {
+    margin-top: 50px;
+    text-wrap: break-word;
+    text-align: center;
+    width: 150px;
+}
+
+.btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 10px;
+}
+
+.btn:hover {
+    background-color: #ffa500;
+}
+
+.title {
+    margin-top: 50px;
+    text-wrap: break-word;
+    text-align: center;
+    width: 100px;
+    color: #ffa500;
+}
