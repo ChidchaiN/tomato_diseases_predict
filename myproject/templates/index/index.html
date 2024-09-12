@@ -20,17 +20,18 @@
             </div>
         </div>
         <img src="{% static 'img/tomato_bg.png' %}" alt="" class="bg-img"
-            style="position: absolute; top: 0; left: 0; width: 100%; height: auto; object-fit: cover; z-index: -1;">
+            style="position: absolute; top: 0; width: 80%; height: auto; object-fit: cover; z-index: -1; left: 5.5%;">
 
         <div class="content">
             <div class="link-button">
-                <button class="btn" id="predict_page_btn">ทำนายโรคใบมะเขือเทศ</button>
-                <button class="btn">โรคใบมะเขือเทศ</button>
+                <button class="btn" id="predict_page_btn">ทำนาย<br />โรคใบมะเขือเทศ</button>
+                <button class="btn" id="info_btn">โรคใบมะเขือเทศ</button>
+                <button class="btn" id="guide_btn">คู่มือการใช้งาน</button>
             </div>
         </div>
 
         <div class="full-width-section" data-bg-url="{% static 'img/tomato_bg.png' %}"
-            style="width: 100%; display: flex; flex-direction: column; align-items: center; padding: 20px;">
+            style="display: flex; flex-direction: column; align-items: center; padding: 20px; display: none;">
             <div class="disease-info fade-up" id="disease-info">
                 <!-- Disease information will be loaded here -->
             </div>
@@ -42,121 +43,218 @@
     </div>
 
     <!-- Footer -->
-    <footer style="background-color: #333;
-  color: #fff;
-  padding: 20px 0;
-  text-align: center;
-  position: relative;
-  bottom: 0;
-  width: 100%;
-  height: 150px;
-  opacity: 0.8;
-  transform: translateY(130%);">
+    <footer>
         <div class="footer">
-            <div class="footer-text" style="margin-bottom: 10px;">
-                <p style="margin: 0;
-    font-size: 14px;">&copy; 2024 Tomato Disease Detection. All rights reserved.</p>
+            <div class="footer-text">
+                <p>&copy; 2024 Tomato Disease Detection. All rights reserved.</p>
             </div>
-            <div class="footer-icons" style="display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-bottom: 10px;">
-                <a href="https://github.com/ChidchaiN" target="_blank" style="color: #fff;
-        font-size: 20px;
-        transition: color 0.3s ease;"><i class="fa-brands fa-github"></i></a>
-                <a href="https://twitter.com/abhishekdeshmukh" target="_blank" style="color: #fff;
-        font-size: 20px;
-        transition: color 0.3s ease;"><i class="fa-brands fa-twitter"></i></a>
-                <a href="https://www.facebook.com/abhishekdeshmukh" target="_blank" style="color: #fff;
-        font-size: 20px;
-        transition: color 0.3s ease;"><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://www.instagram.com/abhishekdeshmukh/" target="_blank" style="color: #fff;
-        font-size: 20px;
-        transition: color 0.3s ease;"><i class="fa-brands fa-instagram"></i></a>
+            <div class="footer-icons">
+                <a href="https://github.com/ChidchaiN" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a href="" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                <a href="" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                <a href="" target="_blank"><i class="fa-brands fa-instagram"></i></a>
             </div>
             <div class="footer-text">
-                <p style="margin: 0;
-    font-size: 14px;">Developed by Chidchai Nukhunthod & Paradon Thonthong</p>
+                <p>Developed by Chidchai Nukhunthod & Paradon Thonthong</p>
             </div>
+        </div>
     </footer>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Initialize Intersection Observer
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry
-                        .target); // Stop observing once the element is visible
-                    }
-                });
-            });
-
-            // Target elements for animation
-            document.querySelectorAll('.fade-up').forEach(el => {
-                observer.observe(el);
-            });
-
-            // Existing code
-            document.getElementById('predict_page_btn').addEventListener('click', function () {
-                window.location.href = '/predict/';
-            });
-
-            // Get the background image URL from the data attribute
-            const section = document.querySelector('.full-width-section');
-            const bgUrl = section.getAttribute('data-bg-url');
-
-            // Apply the background image via JavaScript
-            section.style.background = `url('${bgUrl}') repeat`;
-            section.style.backgroundSize = 'cover';
-
-            async function loadDiseaseInfo() {
-                try {
-                    const response = await fetch('{% static "advice/disease_info.json" %}');
-                    const data = await response.json();
-
-                    // General Care Information
-                    const generalCareDiv = document.getElementById('general-care');
-                    generalCareDiv.innerHTML = `
-                    <h2>${data.general_care.description}</h2>
-                    <ul>
-                        ${data.general_care.general_care.map(item => `<li>${item}</li>`).join('')}
-                    </ul>
-                `;
-
-                    // Disease Information
-                    const diseaseInfoDiv = document.getElementById('disease-info');
-                    Object.keys(data).forEach(key => {
-                        if (key !== 'general_care') {
-                            const disease = data[key];
-                            diseaseInfoDiv.innerHTML += `
-                            <div class="info-card">
-                                <h2>${key}</h2>
-                                <p>${disease.description}</p>
-                                <h3>สาเหตุการเกิดโรค:</h3>
-                                <p>${disease.causes}</p>
-                                <h3>วิธีการดูแลรักษา:</h3>
-                                <ul>
-                                    ${disease.treatment.map(item => `<li>${item}</li>`).join('')}
-                                </ul>
-                                <h3>วิธีการป้องกัน:</h3>
-                                <ul>
-                                    ${disease.prevention.map(item => `<li>${item}</li>`).join('')}
-                                </ul>
-                            </div>
-                        `;
-                        }
-                    });
-                } catch (error) {
-                    console.error('Error loading disease information:', error);
-                }
-            }
-
-            loadDiseaseInfo();
-        });
-    </script>
 
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Initialize Intersection Observer for fade-up effect
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add(
+                        'visible'); // Fade up when element enters the viewport
+                    observer.unobserve(entry.target); // Stop observing once visible
+                }
+            });
+        });
+
+        // Target elements for animation (fade-up)
+        document.querySelectorAll('.fade-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Reset fade animations when user scrolls to the top of the page
+        window.addEventListener('scroll', () => {
+            if (window.scrollY === 0) {
+                document.querySelectorAll('.fade-up').forEach(el => {
+                    el.classList.remove('visible'); // Remove the class to reset the animation
+                });
+                // Re-observe the elements to apply the fade-up animation again
+                document.querySelectorAll('.fade-up').forEach(el => {
+                    observer.observe(el);
+                });
+            }
+        });
+
+        // Existing code for predict page navigation
+        document.getElementById('predict_page_btn').addEventListener('click', function () {
+            window.location.href = '/predict/';
+        });
+
+        // Get the background image URL from the data attribute
+        const section = document.querySelector('.full-width-section');
+        const bgUrl = section.getAttribute('data-bg-url');
+        section.style.background = `url('${bgUrl}') repeat`;
+        section.style.width = '100%';
+        section.style.height = 'auto';
+        section.style.bottom = '0';
+
+        // Function to load disease information and redirect
+        async function loadDiseaseInfoAndRedirect() {
+            try {
+                const response = await fetch('{% static "advice/disease_info.json" %}');
+                const data = await response.json();
+
+                // Define the image paths for each disease
+                const imagePaths = {
+                    "โรคใบจุดมะเขือเทศ": "{% static 'img/leaf_ex/bacterial.png' %}",
+                    "โรคใบไหม้": "{% static 'img/leaf_ex/early_bright.png' %}",
+                    "โรคใบจุดวงกลม": "{% static 'img/leaf_ex/septoria.png' %}"
+                };
+
+                // General Care Information
+                const generalCareDiv = document.getElementById('general-care');
+                if (data.general_care && data.general_care.description) {
+                    generalCareDiv.innerHTML = `
+                <div class="general-care-content">
+                    <div class="general-care-text">
+                        <h2>${data.general_care.description}</h2>
+                        <ul>
+                            ${data.general_care.general_care ? data.general_care.general_care.map(item => `<li>${item}</li>`).join('') : '<li>General care information not available</li>'}
+                        </ul>
+                    </div>
+                    <div class="general-care-image">
+                        <img src="{% static 'img/leaf_ex/healthy.png' %}" alt="General Care Image">
+                    </div>
+                </div>
+            `;
+                } else {
+                    generalCareDiv.innerHTML = '<p>General care information is not available.</p>';
+                }
+
+                // Disease Information
+                const diseaseInfoDiv = document.getElementById('disease-info');
+                let contentLoaded = false; // Flag to check if any content was loaded
+
+                diseaseInfoDiv.innerHTML = ''; // Clear existing content
+
+                Object.keys(data).forEach(key => {
+                    if (key !== 'general_care') {
+                        const item = data[key];
+                        let content = '';
+
+                        if (key === 'web_page') {
+                            content = `
+            <div class="info-card fade-up">
+                <div class="info-text">
+                    <h2>Web Page Functionality</h2>
+                    <p>${item.description || 'Description not available'}</p>
+                    <h3>Functionality:</h3>
+                    <ul>
+                        ${item.functionality ? item.functionality.map(item => `<li>${item}</li>`).join('') : '<li>Functionality not available</li>'}
+                    </ul>
+                </div>
+            </div>
+        `;
+                        } else if (key === 'model') {
+                            content = `
+            <div class="info-card fade-up">
+                <div class="info-text">
+                    <h2>Model Architecture</h2>
+                    <p>${item.description || 'Description not available'}</p>
+                    <h3>Architecture:</h3>
+                    <ul>
+                        ${Object.entries(item.architecture).map(([layer, details]) => {
+                            if (layer === 'flatten') {
+                                return `<li><strong>${layer}</strong>: ${details}</li>`;
+                            } else if (layer === 'dense_layers') {
+                                return details.map(dense => `<li><strong> Dense Layer: </strong> ${dense.units} units, Activation: ${dense.activation}, Dropout: ${dense.dropout}</li >`).join('');
+                            } else {
+                                return `<li><strong>${layer}</strong>: ${details.type || ''} ${details.filters ? `- ${details.filters} filters` : ''} ${details.kernel_size ? `- Kernel size: ${details.kernel_size.join('x')}` : ''}</li >`;}}).join('')}
+                    </ul>
+                    <h3>Compile Settings:</h3>
+                    <ul>
+                        <li>Optimizer: ${item.compile_settings.optimizer || 'Not available'}</li>
+                        <li>Learning Rate: ${item.compile_settings.learning_rate || 'Not available'}</li>
+                        <li>Loss Function: ${item.compile_settings.loss_function || 'Not available'}</li>
+                        <li>Metrics: ${item.compile_settings.metrics ? item.compile_settings.metrics.join(', ') : 'Not available'}</li>
+                    </ul>
+                </div>
+                <div class="info-image">
+                    <img src="{% static 'img/humanoid.jpg' %}" alt="Model Architecture Image" style="margin-top: 20%;">
+                </div>
+            </div>
+        `;
+                        } else {
+                            const imageUrl = imagePaths[key] ||
+                                ''; // Get the image URL based on the disease
+
+                            content = `
+            <div class="info-card fade-up">
+                <div class="info-text">
+                    <h2>${key}</h2>
+                    <p>${item.description || 'Description not available'}</p>
+                    <h3>สาเหตุการเกิดโรค:</h3>
+                    <p>${item.causes || 'Causes not available'}</p>
+                    <h3>วิธีการดูแลรักษา:</h3>
+                    <ul>
+                        ${item.treatment ? item.treatment.map(item => `<li>${item}</li>`).join('') : '<li>Treatment not available</li>'}
+                    </ul>
+                    <h3>วิธีการป้องกัน:</h3>
+                    <ul>
+                        ${item.prevention ? item.prevention.map(item => `<li>${item}</li>`).join('') : '<li>Prevention not available</li>'}
+                    </ul>
+                </div>
+                <div class="info-image">
+                    <img src="${imageUrl}" alt="Image of ${key}">
+                </div>
+            </div>
+        `;
+                        }
+
+                        diseaseInfoDiv.innerHTML += content;
+                        contentLoaded = true; // Set flag to true if content is loaded
+                    }
+                });
+
+                // Show the full-width-section only if content is loaded
+                if (contentLoaded) {
+                    section.style.display = 'flex';
+                    // Re-apply the observer for the new elements
+                    document.querySelectorAll('.fade-up').forEach(el => {
+                        observer.observe(el);
+                    });
+
+                    // Scroll to the first info-card after loading
+                    const firstInfoCard = document.querySelector('.info-card');
+                    if (firstInfoCard) {
+                        firstInfoCard.scrollIntoView({
+                            behavior: 'smooth'
+                        }); // Scroll to the first info-card
+                    }
+                } else {
+                    section.style.display = 'none'; // Hide if no content is loaded
+                }
+
+            } catch (error) {
+                console.error('Error loading disease information:', error);
+                // Hide the full-width-section if there is an error
+                section.style.display = 'none';
+            }
+        }
+
+        // Load disease info and redirect when info button is clicked
+        document.getElementById('info_btn').addEventListener('click', function () {
+            loadDiseaseInfoAndRedirect(); // Load disease information
+        });
+    });
+</script>
 
 </html>

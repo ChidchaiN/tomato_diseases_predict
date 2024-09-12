@@ -48,32 +48,170 @@ body {
 }
 
 .title {
-    margin-top: 50px;
     text-wrap: break-word;
     text-align: center;
     width: 150px;
 }
 
+.title h1 {
+    word-wrap: break-word;
+    /* Breaks long words onto the next line */
+    overflow-wrap: break-word;
+    /* Ensures text wraps inside the container */
+    white-space: normal;
+    /* Allows text to wrap normally */
+    width: 600px;
+    transform: translateX(70%);
+    margin-top: 0;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 60px);
+}
+
+.link-button {
+    display: flex;
+    gap: 50px;
+}
+
 .btn {
-    padding: 10px 20px;
-    font-size: 16px;
+    width: 20vw;
+    height: 30vh;
+    padding: 10px;
+    font-size: 32px;
     color: #fff;
     background-color: #333;
     border: none;
-    border-radius: 5px;
+    border-radius: 20px;
     cursor: pointer;
-    display: block;
-    margin: 10px;
+    opacity: 0.95;
+    transition: background-color 0.3s ease, opacity 0.3s ease;
 }
 
 .btn:hover {
     background-color: #ffa500;
+    opacity: 1;
 }
 
-.title {
-    margin-top: 50px;
-    text-wrap: break-word;
-    text-align: center;
-    width: 100px;
-    color: #ffa500;
+.disease-info,
+.general-care-card {
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 20px;
+}
+
+/* Disease and General Care Cards */
+.disease-info,
+.general-care-card {
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 20px;
+}
+
+.info-card,
+.general-care-card {
+    display: flex;
+    /* Flexbox for layout */
+    justify-content: space-between;
+    /* Space between text and image */
+    align-items: flex-start;
+    /* Align items to the top */
+    color: #333;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.info-card {
+    margin-bottom: 80px;
+}
+
+.general-care-card {
+    margin-bottom: 20px;
+}
+
+.info-card h2,
+.general-care-card h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.info-card p,
+.general-care-card p {
+    margin-bottom: 10px;
+}
+
+.info-card ul,
+.general-care-card ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.info-text {
+    width: 70%;
+}
+
+.info-image {
+    width: 25%;
+    margin-left: 20px;
+}
+
+.info-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.general-care-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    /* Space between text and image */
+}
+
+.general-care-text {
+    flex: 1;
+    /* Takes up the remaining space */
+}
+
+.general-care-image {
+    flex: 0 0 150px;
+    /* Fixed width for image container */
+}
+
+.general-care-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-up {
+    opacity: 0;
+    /* Hide initially */
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-up.visible {
+    animation: fadeUp 1s ease-out forwards;
+    /* Apply the animation */
 }
