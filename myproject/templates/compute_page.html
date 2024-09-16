@@ -13,7 +13,7 @@
 
 <body>
   <div class="nav-bar">
-    <a href="http://127.0.0.1:8000/index" style="text-decoration: none;">
+    <a href="/index/" style="text-decoration: none;">
       <h1 style="color: white;">Tomato Disease Detection</h1>
     </a>
   </div>
@@ -171,9 +171,16 @@
 
       const constraints = {
         video: {
+          facingMode: 'environment', // Use the rear camera if available
           deviceId: deviceId ? {
             exact: deviceId
-          } : undefined
+          } : undefined,
+          width: {
+            ideal: 1280
+          }, // Adjust for better resolution
+          height: {
+            ideal: 720
+          } // Adjust for better resolution
         }
       };
 
