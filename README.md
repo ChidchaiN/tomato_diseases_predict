@@ -73,13 +73,13 @@ To set up the project locally, follow these steps:
 Here are some screenshots of the web application:
 
 - **Homepage**
-  ![Upload Image Page](../docs/Screenshot_19-9-2024_232737_3.0.97.52.jpeg)
+  ![Upload Image Page](https://github.com/user-attachments/assets/341c89db-de40-4ac6-9ed5-3bc09a0a0274)
   
 - **Upload Image Page**
-  ![Upload Image Page](../docs/Screenshot_19-9-2024_232752_3.0.97.52.jpeg)
+  ![Upload Image Page](https://github.com/user-attachments/assets/eb59270d-d231-44d8-906a-5d48b3509234)
   
 - **Prediction Results Page**
-  ![Prediction Results Page](../docs/Screenshot%202024-09-19%20232821.png)
+  ![Prediction Results Page](https://github.com/user-attachments/assets/17f264bd-9469-4c07-9f67-d388eb8ecd34)
 
 ## Contributing
 
