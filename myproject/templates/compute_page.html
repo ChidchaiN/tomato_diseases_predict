@@ -31,11 +31,10 @@
       </div>
       <label for="file-input" class="btn" id="file-input-label">อัพโหลดรูปภาพ</label>
       <p id="file-input-label-advice">ตรวจด้วยรูปภาพ (เฉพาะไฟล์ .jpg, .jpeg, .png)</p>
-      <input type="file" id="file-input" name="file" accept="image/*" capture onchange="previewImage(event)">
+      <input type="file" id="file-input" name="file" accept="image/*" onchange="previewImage(event)">
       <button type="button" class="btn" id="capture-image-btn" onclick="startCamera()">ถ่ายภาพ</button>
       <p id="capture-image-btn-advice">ตรวจด้วยการถ่ายภาพ ต้องถ่ายภาพด้านหน้าของใบมะเขือเทศ</p>
-      <p class="error-message" id="error-message">*ระบบสามารถตรวจได้ทีละใบ ภาพที่นำมาตรวจจะต้องเห็นใบมะเขือเทศชัดเจน*
-      </p>
+      <p class="error-message" id="error-message">*ระบบสามารถตรวจได้ทีละใบ ภาพที่นำมาตรวจจะต้องเห็นใบมะเขือเทศชัดเจน*</p>
     </form>
   </div>
 </div>

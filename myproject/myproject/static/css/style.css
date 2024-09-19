@@ -50,20 +50,14 @@ body {
 }
 
 .title {
-    text-wrap: break-word;
+    display: flex;
+    flex-direction: column;
     text-align: center;
-    width: 150px;
+    text-wrap: break-word;
+    transform: translateX(70%);
 }
 
 .title h1 {
-    word-wrap: break-word;
-    /* Breaks long words onto the next line */
-    overflow-wrap: break-word;
-    /* Ensures text wraps inside the container */
-    white-space: normal;
-    /* Allows text to wrap normally */
-    width: 600px;
-    transform: translateX(70%);
     margin-top: 0;
 }
 
@@ -268,7 +262,7 @@ footer {
 
     .title h1 {
         font-size: 14px;
-        transform: translateX(-20%);
+        transform: translateX(-70%);
         margin-bottom: 0;
     }
 
@@ -299,6 +293,13 @@ footer {
 
     footer {
         height: 250px;
+        margin-top: 200px;
     }
+}
 
+@media only screen and (min-width: 1629px) {
+    
+    .title {
+        transform: translateX(105%);
+    }
 }

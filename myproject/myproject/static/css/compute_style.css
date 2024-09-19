@@ -286,7 +286,7 @@ video {
     color: #ffa500;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 768px) {
 
     #capture-image-btn,
     #capture-image-btn-advice {
@@ -306,11 +306,23 @@ video {
 
     .popup-content {
         width: 90vw;
-        height: 80vh;
+        height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         transform: translateX(-30%);
+    }
+
+    .btn {
+        margin-top: 0;
+    }
+}
+
+@media only screen and (min-width: 1629px) {
+    
+    .popup-content {
+        top: 15%;
+        left: 35%;
     }
 }
