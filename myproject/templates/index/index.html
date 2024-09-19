@@ -19,12 +19,10 @@
                 <h1>ระบบจำแนกโรคพืชใบมะเขือเทศโดยใช้การเรียนรู้เชิงลึก</h1>
             </div>
         </div>
-        <img src="{% static 'img/tomato_bg.png' %}" alt="" class="bg-img"
-            style="position: absolute; top: 0; width: 80%; height: auto; object-fit: cover; z-index: -1; left: 5.5%;">
 
         <div class="content">
             <div class="link-button">
-                <button class="btn" id="predict_page_btn">ทำนาย<br />โรคใบมะเขือเทศ</button>
+                <button class="btn" id="predict_page_btn">จำแนก<br />โรคใบมะเขือเทศ</button>
                 <button class="btn" id="info_btn">โรคใบมะเขือเทศ</button>
                 <button class="btn" id="guide_btn">คู่มือการใช้งาน</button>
             </div>
@@ -100,8 +98,8 @@
 
         // Get the background image URL from the data attribute
         const section = document.querySelector('.full-width-section');
-        const bgUrl = section.getAttribute('data-bg-url');
-        section.style.background = `url('${bgUrl}') repeat`;
+        // const bgUrl = section.getAttribute('data-bg-url');
+        // section.style.background = `url('${bgUrl}') repeat`;
         section.style.width = '100%';
         section.style.height = 'auto';
         section.style.bottom = '0';

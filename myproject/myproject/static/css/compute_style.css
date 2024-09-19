@@ -6,7 +6,13 @@
 }
 
 body {
-    background-color: rgb(238, 238, 238);
+    background-image: url("../img/tomato_bg.png");
+    background-repeat: repeat;
+    background-position: 50%;
+}
+
+.nav-link {
+    text-decoration: none;
 }
 
 .nav-bar {
@@ -22,6 +28,7 @@ body {
     font-size: 24px;
     font-weight: bold;
     margin: 0;
+    color: white;
 }
 
 .nav-bar ul {
@@ -67,29 +74,66 @@ body {
     box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
     position: relative;
     height: 50vh;
+    margin-bottom: 25px;
+}
+
+.icon-wrapper {
+    display: none;
 }
 
 .icon-container {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 50px;
     height: 50px;
 }
 
-video {
+.icon-container p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
 
-    border-radius: 10px;
+.icon-container i {
+    color: #333;
+}
+
+#camera-container {
+    display: none;
+}
+
+video {
+    border-radius: 20px;
     position: relative;
     bottom: 1px;
 }
 
+#video {
+    height: 50vh;
+    width: 35vw;
+}
+
 #capture-btn {
     position: absolute;
-    bottom: 20px;
+    bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
+}
+
+#back-btn {
+    position: absolute;
+    top: 25px;
+    width: 70px;
+    left: 0;
+    z-index: 10;
+}
+
+#back-btn i {
+    font-size: 24px;
+    color: #fff;
 }
 
 .btn {
@@ -102,6 +146,8 @@ video {
     cursor: pointer;
     display: block;
     margin: 10px;
+    width: 150px;
+    text-align: center;
 }
 
 .btn:hover {
@@ -114,6 +160,27 @@ video {
 
 #file-input {
     display: none;
+}
+
+#file-input-label,
+#capture-image-btn {
+    width: 200px;
+    text-align: center;
+    left: 50%;
+    transform: translateX(60%);
+}
+
+#file-input-label-advice,
+#capture-image-btn-advice {
+    font-size: 14px;
+    color: #555;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 475px;
+    word-wrap: break-word;
+    padding: 5px;
+    border-radius: 3px;
 }
 
 #preview {
@@ -139,6 +206,7 @@ video {
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    display: none;
 }
 
 .popup-content {
@@ -172,4 +240,77 @@ video {
 
 .popup-content div {
     margin-top: 20px;
+}
+
+.error-message {
+    font-size: 14px;
+    color: #ff0000;
+    margin-top: 25px;
+    text-align: center;
+    width: 450px;
+    transform: translateX(5%);
+}
+
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 150px;
+    opacity: 0.8;
+    transform: translateY(130%);
+}
+
+.footer-text p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.footer-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+.footer-icons a {
+    color: #fff;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.footer-icons a:hover {
+    color: #ffa500;
+}
+
+@media only screen and (max-width: 600px) {
+
+    #capture-image-btn,
+    #capture-image-btn-advice {
+        display: none;
+    }
+
+    .error-message {
+        width: 250px;
+        word-wrap: break-word;
+        transform: translateX(45%);
+    }
+
+    .input {
+        height: 30vh;
+        width: 90vw;
+    }
+
+    .popup-content {
+        width: 90vw;
+        height: 80vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transform: translateX(-30%);
+    }
 }
