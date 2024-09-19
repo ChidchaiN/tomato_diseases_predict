@@ -73,13 +73,13 @@ To set up the project locally, follow these steps:
 Here are some screenshots of the web application:
 
 - **Homepage**
-  ![Upload Image Page](https://github.com/ChidchaiN/tomato_diseases_predict.git/docs/Screenshot_19-9-2024_232737_3.0.97.52.jpeg)
+  ![Upload Image Page](https://github.com/ChidchaiN/tomato_diseases_predict.git/raw/main/docs/Screenshot_19-9-2024_232737_3.0.97.52.jpeg)
   
 - **Upload Image Page**
-  ![Upload Image Page](https://github.com/ChidchaiN/tomato_diseases_predict.git/docs/Screenshot_19-9-2024_232752_3.0.97.52.jpeg)
+  ![Upload Image Page](https://github.com/ChidchaiN/tomato_diseases_predict.git/raw/main/docs/Screenshot_19-9-2024_232752_3.0.97.52.jpeg)
   
 - **Prediction Results Page**
-  ![Prediction Results Page](https://github.com/ChidchaiN/tomato_diseases_predict.git/docs/Screenshot 2024-09-19 232821.png)
+  ![Prediction Results Page](https://github.com/ChidchaiN/tomato_diseases_predict.git/raw/main/docs/Screenshot 2024-09-19 232821.png)
 
 ## Contributing
 
