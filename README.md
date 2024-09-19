@@ -68,19 +68,6 @@ To set up the project locally, follow these steps:
 2. Upload an image of a tomato leaf to receive a prediction of the disease.
 3. The application will display the predicted disease and relevant advice.
 
-## Website Images
-
-Here are some screenshots of the web application:
-
-- **Homepage**
-  ![Upload Image Page](https://github.com/ChidchaiN/tomato_diseases_predict.git/raw/main/docs/Screenshot_19-9-2024_232737_3.0.97.52.jpeg)
-  
-- **Upload Image Page**
-  ![Upload Image Page](https://github.com/ChidchaiN/tomato_diseases_predict.git/raw/main/docs/Screenshot_19-9-2024_232752_3.0.97.52.jpeg)
-  
-- **Prediction Results Page**
-  ![Prediction Results Page](https://github.com/ChidchaiN/tomato_diseases_predict.git/raw/main/docs/Screenshot 2024-09-19 232821.png)
-
 ## Contributing
 
 If you'd like to contribute to this project, please follow these guidelines:
