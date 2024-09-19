@@ -11,77 +11,82 @@
   <title>Tomato Disease Detection</title>
 </head>
 
-<div class="nav-bar">
-  <a href="/index/" class="nav-link">
-    <h1>Tomato Disease Detection</h1>
-  </a>
-</div>
+<body>
 
-<div class="compute">
-  <div class="input">
-    <h1 id="title">ตรวจโรค "ใบมะเขือเทศ"</h1>
-    <form id="upload-form" action="{% url 'predict' %}" method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      <div id="camera-container" class="camera-container">
-        <video id="video" autoplay></video>
-        <button type="button" class="btn" id="capture-btn" onclick="captureImage()">ถ่ายภาพ</button>
-        <button type="button" class="btn" id="back-btn">
-          <a href="/predict/"><i class="fa-solid fa-arrow-left"></i></a>
-        </button>
-      </div>
-      <label for="file-input" class="btn" id="file-input-label">อัพโหลดรูปภาพ</label>
-      <p id="file-input-label-advice">ตรวจด้วยรูปภาพ (เฉพาะไฟล์ .jpg, .jpeg, .png)</p>
-      <input type="file" id="file-input" name="file" accept="image/*" onchange="previewImage(event)">
-      <button type="button" class="btn" id="capture-image-btn" onclick="startCamera()">ถ่ายภาพ</button>
-      <p id="capture-image-btn-advice">ตรวจด้วยการถ่ายภาพ ต้องถ่ายภาพด้านหน้าของใบมะเขือเทศ</p>
-      <p class="error-message" id="error-message">*ระบบสามารถตรวจได้ทีละใบ ภาพที่นำมาตรวจจะต้องเห็นใบมะเขือเทศชัดเจน*</p>
-    </form>
+  <div class="nav-bar">
+    <a href="/index/" class="nav-link">
+      <h1>Tomato Disease Detection</h1>
+    </a>
   </div>
-</div>
 
-<div class="icon-wrapper">
-  <div class="icon-container">
-    <p>ผลลัพธ์</p>
-    <i class="fa-solid fa-arrow-right"></i>
-  </div>
-</div>
-
-<div class="output-wrapper">
-  <div class="output hidden" id="output-section">
-    <img id="preview" src="" alt="Image Preview" class="hidden" />
-    <div class="prediction-result">
-      {% if predicted_class %}
-      <p id="prediction-text">{{ predicted_class }}</p>
-      <img id="result_image" src="data:image/jpeg;base64,{{ image_base64 }}" alt="Uploaded Image" />
-      <p id="description-text"></p>
-      {% endif %}
+  <div class="compute">
+    <div class="input">
+      <h1 id="title">ตรวจโรค "ใบมะเขือเทศ"</h1>
+      <form id="upload-form" action="{% url 'predict' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div id="camera-container" class="camera-container">
+          <video id="video" autoplay></video>
+          <button type="button" class="btn" id="capture-btn" onclick="captureImage()">ถ่ายภาพ</button>
+          <button type="button" class="btn" id="back-btn">
+            <a href="/predict/"><i class="fa-solid fa-arrow-left"></i></a>
+          </button>
+        </div>
+        <label for="file-input" class="btn" id="file-input-label">อัพโหลดรูปภาพ</label>
+        <p id="file-input-label-advice">ตรวจด้วยรูปภาพ (เฉพาะไฟล์ .jpg, .jpeg, .png)</p>
+        <input type="file" id="file-input" name="file" accept="image/*" onchange="previewImage(event)">
+        <button type="button" class="btn" id="capture-image-btn" onclick="startCamera()">ถ่ายภาพ</button>
+        <p id="capture-image-btn-advice">ตรวจด้วยการถ่ายภาพ ต้องถ่ายภาพด้านหน้าของใบมะเขือเทศ</p>
+        <p class="error-message" id="error-message">*ระบบสามารถตรวจได้ทีละใบ ภาพที่นำมาตรวจจะต้องเห็นใบมะเขือเทศชัดเจน*
+        </p>
+      </form>
     </div>
   </div>
-</div>
 
-<!-- Pop-up Box -->
-<div id="popup-box" class="popup-box">
-  <div class="popup-content">
-    <span class="popup-close" onclick="closePopup()">&times;</span>
-    <div id="popup-text"></div>
+  <div class="icon-wrapper">
+    <div class="icon-container">
+      <p>ผลลัพธ์</p>
+      <i class="fa-solid fa-arrow-right"></i>
+    </div>
   </div>
-</div>
 
-<!-- Footer -->
-<footer class="footer">
-  <div class="footer-text">
-    <p>&copy; 2024 Tomato Disease Detection. All rights reserved.</p>
+  <div class="output-wrapper">
+    <div class="output hidden" id="output-section">
+      <img id="preview" src="" alt="Image Preview" class="hidden" />
+      <div class="prediction-result">
+        {% if predicted_class %}
+        <p id="prediction-text">{{ predicted_class }}</p>
+        <img id="result_image" src="data:image/jpeg;base64,{{ image_base64 }}" alt="Uploaded Image" />
+        <p id="description-text"></p>
+        {% endif %}
+      </div>
+    </div>
   </div>
-  <div class="footer-icons">
-    <a href="https://github.com/ChidchaiN" target="_blank"><i class="fa-brands fa-github"></i></a>
-    <a href="https://twitter.com/abhishekdeshmukh" target="_blank"><i class="fa-brands fa-twitter"></i></a>
-    <a href="https://www.facebook.com/abhishekdeshmukh" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-    <a href="https://www.instagram.com/abhishekdeshmukh/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+
+  <!-- Pop-up Box -->
+  <div id="popup-box" class="popup-box">
+    <div class="popup-content">
+      <span class="popup-close" onclick="closePopup()">&times;</span>
+      <div id="popup-text"></div>
+    </div>
   </div>
-  <div class="footer-text">
-    <p>Developed by Chidchai Nukhunthod & Paradon Thonthong</p>
-  </div>
-</footer>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-text">
+      <p>&copy; 2024 Tomato Disease Detection. All rights reserved.</p>
+    </div>
+    <div class="footer-icons">
+      <a href="https://github.com/ChidchaiN" target="_blank"><i class="fa-brands fa-github"></i></a>
+      <a href="https://twitter.com/abhishekdeshmukh" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+      <a href="https://www.facebook.com/abhishekdeshmukh" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+      <a href="https://www.instagram.com/abhishekdeshmukh/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+    </div>
+    <div class="footer-text">
+      <p>Developed by Chidchai Nukhunthod & Paradon Thonthong</p>
+    </div>
+  </footer>
+
+</body>
 
 <script>
   const video = document.getElementById('video');
@@ -100,27 +105,30 @@
   let currentStream = null;
 
   function startCamera() {
+    // Ensure all elements not related to camera are hidden
     fileInputLabel.style.display = 'none';
     captureImageBtn.style.display = 'none';
-    fileInputLabelAdvice.style.display = 'none'; // Hide file input advice
-    captureImageBtnAdvice.style.display = 'none'; // Hide camera button advice
+    fileInputLabelAdvice.style.display = 'none';
+    captureImageBtnAdvice.style.display = 'none';
     title.style.display = 'none';
     error_message.style.display = 'none';
 
+    // Show the camera container
     cameraContainer.style.display = 'block';
 
+    // Use mediaDevices API to list and select devices
     navigator.mediaDevices.enumerateDevices()
       .then(devices => {
         const videoDevices = devices.filter(device => device.kind === 'videoinput');
         if (videoDevices.length > 0) {
-          startVideo(videoDevices[0].deviceId);
+          startVideo(videoDevices[0].deviceId); // Start the camera with the first device found
         } else {
           alert("No camera devices found.");
         }
       })
       .catch(err => {
-        console.error("Error enumerating devices: ", err);
-        alert("Error enumerating devices: " + err.message);
+        console.error("Error accessing camera devices: ", err);
+        alert("Error accessing camera devices: " + err.message);
       });
   }
 
@@ -295,6 +303,5 @@
     });
   });
 </script>
-</body>
 
 </html>
