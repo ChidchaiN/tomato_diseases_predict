@@ -187,22 +187,34 @@
   }
 
   function previewImage(event) {
+    const file = event.target.files[0];
+    const fileType = file.type;
+    const validImageTypes = ["image/jpeg", "image/png"];
+
+    // Check if the file type is valid
+    if (!validImageTypes.includes(fileType)) {
+      alert("Invalid file type! Please upload an image with .jpg, .jpeg, or .png format.");
+      // Clear the input value to allow selecting another file
+      event.target.value = "";
+      // Optionally redirect back to the prediction page or reset the form
+      window.location.href = "/predict/";
+      return;
+    }
+
     const reader = new FileReader();
     reader.onload = function () {
-      preview.src = reader.result;
-      preview.classList.remove('hidden');
-      cameraContainer.classList.add('hidden');
-      fileInputLabel.classList.remove('hidden');
-      captureImageBtn.classList.remove('hidden');
-
+      document.getElementById('preview').src = reader.result;
+      document.getElementById('preview').classList.remove('hidden');
       document.getElementById('output-section').classList.remove('hidden');
       document.querySelector('.icon-container').classList.remove('hidden');
 
-      uploadForm.submit();
+      // Submit the form for prediction
+      document.getElementById('upload-form').submit();
       document.querySelector('.prediction-result').innerHTML = '';
-    }
-    reader.readAsDataURL(event.target.files[0]);
+    };
+    reader.readAsDataURL(file);
   }
+
 
   function showPopup(predictedClass) {
     fetch('{% static "advice/advice.json" %}')
